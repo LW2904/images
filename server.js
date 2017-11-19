@@ -1,13 +1,8 @@
 const express = require('express')
-const root = express()
+const app = express()
 
-const app = express.Router()
-
-root.use('/files', app)
-
-root.set('view engine', 'ejs')
-
-root.enable('trust proxy')
+app.set('view engine', 'ejs')
+app.enable('trust proxy')
 
 app.use(require('helmet')())                // Basic security.
 app.use(require('morgan')('dev', {          // Logging.
@@ -15,11 +10,11 @@ app.use(require('morgan')('dev', {          // Logging.
 }))
 
 app.use(express.static('files'))            // Images.
-app.use('/thumb', express.static('thumbs')) // Thumbnails.
+app.use('./thumb', express.static('thumbs')) // Thumbnails.
 
 app.use(express.static('static'))           // Pages.
 
-app.use('/', require('./fs'))               // Filesystem; Upload/Delete.
+app.use('./', require('./fs'))               // Filesystem; Upload/Delete.
 
 app.use(require('./error'))                 // Handle errors.
 

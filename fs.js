@@ -26,7 +26,7 @@ const upload = multer({
     cb(null, MIMETYPES.includes(file.mimetype))
 })
 
-router.post('/upload', upload.single('file'), (req, res, next) => {
+router.post('./upload', upload.single('file'), (req, res, next) => {
   const file = req.file
 
   if (!file)
@@ -44,7 +44,7 @@ router.post('/upload', upload.single('file'), (req, res, next) => {
   }).catch(log.error) // User doesn't need to know/care about this.
 })
 
-router.get('/delete/:name', (req, res) => {
+router.get('./delete/:name', (req, res) => {
   const name = req.params.name
 
   if (req.params.name === 'all')
