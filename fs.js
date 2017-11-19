@@ -5,7 +5,7 @@ const log = require('./logger')
 const cleanup = require('./utils').cleanup
 
 const fs = require('fs')
-const Jimp = require('Jimp')
+const Jimp = require('jimp')
 
 const router = require('express').Router()
 
