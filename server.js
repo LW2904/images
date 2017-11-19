@@ -1,9 +1,13 @@
 const express = require('express')
-const app = express()
+const root = express()
 
-app.set('view engine', 'ejs')
+const app = express.Router()
 
-app.enable('trust proxy')
+root.use('/files', app)
+
+root.set('view engine', 'ejs')
+
+root.enable('trust proxy')
 
 app.use(require('helmet')())                // Basic security.
 app.use(require('morgan')('dev', {          // Logging.
@@ -19,4 +23,4 @@ app.use('/', require('./fs'))               // Filesystem; Upload/Delete.
 
 app.use(require('./error'))                 // Handle errors.
 
-app.listen(8083)
+root.listen(8083)
