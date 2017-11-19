@@ -57,3 +57,6 @@ router.get('/delete/:name', (req, res) => {
 
   return res.render('success', { message: 'Deleted file(s).' })
 })
+
+router.get('/index', (req, res) =>
+  res.render('index', { images: fs.readdirSync('./files') }))
