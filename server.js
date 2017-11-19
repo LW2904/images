@@ -12,11 +12,11 @@ app.use(require('morgan')('dev', {  // Logging.
   stream: { write: msg => require('../logger').verbose(msg.trim()) }
 }))
 
-app.use(express.static('files'))  // Images.
-app.use(express.static('static')) // Pages.
+app.use(express.static('files'))    // Images.
+app.use(express.static('static'))   // Pages.
 
-app.use('/', require('./fs'))     // Filesystem; Upload/Delete.
+app.use('/', require('./fs'))       // Filesystem; Upload/Delete.
 
-app.use(require('./error'))       // Handle errors.
+app.use(require('./error'))         // Handle errors.
 
 app.listen(PORT)
