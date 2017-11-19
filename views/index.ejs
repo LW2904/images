@@ -6,19 +6,38 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="/styles/statuspage.css">
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/styles/skeleton.css">
+
+    <style>
+
+      body {
+        font-family: 'Arial';
+        background: #0e0e0e;
+        color: #cccccc;
+      }
+
+      .muted {
+        font-size: 12px;
+      }
+
+      .thumb {
+        width: 100px;
+        height: auto;
+      }
+
+    </style>
 
     <title>reichsarchiv / index</title>
   </head>
 
   <body>
     <div class="container">
-      <div class="center">
-        <p>
-          <b class="success"><%= message %></b></br>
-          <a href="/" class="muted">Back.</a>
-        </p>
-      </div>
+      <h4>index <a href="/"><small class="muted">back</small></a></h4>
+
+      <% images.forEach(img =>  { %>
+        <a href="<%= img %>"><img src="/thumb/<%= img %>" class="thumb"/></a>
+      <% }) %>
     </div>
   </body>
 </html>

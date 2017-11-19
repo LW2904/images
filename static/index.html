@@ -6,6 +6,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/styles/skeleton.css">
+
     <title>reichsarchiv / upload</title>
 
     <style>
@@ -22,6 +25,8 @@
 
       form { color: #dbdbdb; }
 
+      label { cursor: pointer; }
+
       #center {
         display: flex;
         justify-content: center;
@@ -34,7 +39,11 @@
         border-radius: 5px;
       }
 
-      #upload { margin: auto; }
+      #file-input {
+        opacity: 0;
+        position: absolute;
+        z-index: -1;
+      }
 
       .muted { color: grey; font-size: 11px; }
 
@@ -48,8 +57,9 @@
           action="/upload"
           method="post"
           encType="multipart/form-data">
-            <input type="file" name="file"/>
-            <button type="submit">Upload</button>
+            <button type="button"><label for="file-input">Choose file</label></button>
+            <input type="file" name="file" id="file-input"/>
+            <button type="submit" class="button-primary">Upload</button>
         </form>
 
         <small class="muted">
