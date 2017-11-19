@@ -35,7 +35,7 @@
     <div class="container">
       <h4>index <a href="./"><small class="muted">back</small></a></h4>
 
-      <% images.forEach(img =>  { %>
+      <% images.reverse().forEach(img =>  { %>
         <a href="./<%= img %>"><img src="./thumb/<%= img %>" class="thumb"/></a>
       <% }) %>
     </div>
