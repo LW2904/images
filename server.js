@@ -10,11 +10,11 @@ app.use(require('morgan')('dev', {          // Logging.
 }))
 
 app.use(express.static('files'))            // Images.
-app.use('./thumb', express.static('thumbs')) // Thumbnails.
+app.use('/thumb', express.static('thumbs')) // Thumbnails.
 
 app.use(express.static('static'))           // Pages.
 
-app.use('./', require('./fs'))               // Filesystem; Upload/Delete.
+app.use('/', require('./fs'))               // Filesystem; Upload/Delete.
 
 app.use(require('./error'))                 // Handle errors.
 
