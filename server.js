@@ -18,4 +18,4 @@ app.use('./', require('./fs'))               // Filesystem; Upload/Delete.
 
 app.use(require('./error'))                 // Handle errors.
 
-root.listen(8083)
+app.listen(8083)
