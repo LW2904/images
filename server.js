@@ -1,5 +1,3 @@
-const PORT = process.env.PORT || 8083
-
 const express = require('express')
 const app = express()
 
@@ -21,4 +19,4 @@ app.use('/', require('./fs'))               // Filesystem; Upload/Delete.
 
 app.use(require('./error'))                 // Handle errors.
 
-app.listen(PORT)
+app.listen(8083)
