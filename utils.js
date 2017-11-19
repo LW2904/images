@@ -1,6 +1,6 @@
 const MAX_FILES = 100
 
-const log = require('../logger')
+const log = require('./logger')
 
 const fs = require('fs')
 

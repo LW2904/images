@@ -1,7 +1,7 @@
 const MAX_FILES = 100
 const MIMETYPES = [ 'image/jpeg', 'image/png' ]
 
-const log = require('../logger')
+const log = require('./logger')
 const cleanup = require('./utils').cleanup
 
 const fs = require('fs')
