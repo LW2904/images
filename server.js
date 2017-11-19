@@ -9,7 +9,7 @@ app.enable('trust proxy')
 
 app.use(require('helmet')())                // Basic security.
 app.use(require('morgan')('dev', {          // Logging.
-  stream: { write: msg => require('../logger').verbose(msg.trim()) }
+  stream: { write: msg => require('./logger').verbose(msg.trim()) }
 }))
 
 app.use(express.static('files'))            // Images.
