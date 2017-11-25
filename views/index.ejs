@@ -14,17 +14,20 @@
       body {
         font-family: 'Arial';
         background: #0e0e0e;
-        color: #cccccc;
-      }
+        color: #cccccc }
 
-      .muted {
-        font-size: 12px;
-      }
+      small {
+        font-size: 15px }
+
+      a.image {
+        text-decoration: none }
+
+      .header {
+        margin-top: 2rem }
 
       .thumb {
         width: 100px;
-        height: auto;
-      }
+        height: auto }
 
     </style>
 
@@ -32,11 +35,15 @@
   </head>
 
   <body>
-    <div class="container">
-      <h4>index <a href="./"><small class="muted">back</small></a></h4>
+    <div class="container header">
+      <h4>index <a href="./"><small class="muted">Back.</small></a></h4>
+    </div>
 
+    <div class="container">
       <% images.reverse().forEach(img =>  { %>
-        <a href="./<%= img %>"><img src="./thumb/<%= img %>" class="thumb"/></a>
+        <a id="<%= img %>" class="image">
+          <img src="./thumb/<%= img %>" class="thumb"/>
+        </a>
       <% }) %>
     </div>
   </body>
