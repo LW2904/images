@@ -1,0 +1,4 @@
+{
+    "MAX_FILES": 100,
+    "MIMETYPES": [ "image/jpeg", "image/png" ]
+}

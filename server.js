@@ -4,18 +4,25 @@ const app = express()
 app.set('view engine', 'ejs')
 app.enable('trust proxy')
 
-app.use(require('helmet')())                // Basic security.
-app.use(require('morgan')('dev', {          // Logging.
+// Basic security and logging.
+app.use(require('helmet')())
+app.use(require('morgan')('dev', {
   stream: { write: msg => require('./logger').verbose(msg.trim()) }
 }))
 
-app.use(express.static('files'))            // Images.
-app.use('/thumb', express.static('thumbs')) // Thumbnails.
+// serve images and thumbnails.
+app.use(express.static('files'))
+app.use('/thumb', express.static('files/thumbs'))
 
-app.use(express.static('static'))           // Pages.
+// Pages.
+app.use(express.static('static'))
+app.use('/index', require('./routes/index'))
 
-app.use('/', require('./fs'))               // Filesystem; Upload/Delete.
+// API.
+app.use('/upload', require('./routes/upload'))
+app.use('/delete', require('./routes/delete'))
 
-app.use(require('./error'))                 // Handle errors.
+// Catch-all for errors.
+app.use(require('./error'))
 
 app.listen(8083)
