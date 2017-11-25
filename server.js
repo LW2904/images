@@ -10,7 +10,7 @@ app.use(require('morgan')('dev', {
   stream: { write: msg => require('./logger').verbose(msg.trim()) }
 }))
 
-// serve images and thumbnails.
+// Serve images and thumbnails.
 app.use(express.static('files'))
 app.use('/thumb', express.static('files/thumbs'))
 
@@ -23,6 +23,6 @@ app.use('/upload', require('./routes/upload'))
 app.use('/delete', require('./routes/delete'))
 
 // Catch-all for errors.
-app.use(require('./error'))
+app.use(require('./routes/error'))
 
 app.listen(8083)
