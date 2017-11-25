@@ -18,26 +18,26 @@ const upload = multer({
   }),
   limits: {
     fileSize: 1024 * 1024,
-    files: 1
+    files: 5
   },
   fileFilter: (req, file, cb) =>
     cb(null, MIMETYPES.includes(file.mimetype))
 })
 
-router.post('/', upload.single('file'), (req, res, next) => {
-  const file = req.file
-  
-  if (!file)
-    return next(new Error('Invalid file.'))
-  
-  log.debug(`file ${file.filename} uploaded.`)
-  
-  res.status(200).render('uploaded', { name: file.filename })
-  
-  Jimp.read(file.path).then(img => {
-    const w = img.bitmap.width, h = img.bitmap.height
-    const f = w < h ? w : h
-    img.crop((w / 2) - (f / 2), 0, f, f).scaleToFit(100, 100)
-       .write('./files/thumbs/' + file.filename)
-  }).catch(log.error) // User doesn't need to know/care about this.
+router.post('/', upload.array('file', 5), (req, res, next) => {
+  for (const file of req.files) {
+    if (!file)
+      return next(new Error('Invalid file.'))
+    
+    log.debug(`file ${file.filename} uploaded.`)
+    
+    res.status(200).render('uploaded', { name: file.filename })
+    
+    Jimp.read(file.path).then(img => {
+      const w = img.bitmap.width, h = img.bitmap.height
+      const f = w < h ? w : h
+      img.crop((w / 2) - (f / 2), 0, f, f).scaleToFit(100, 100)
+        .write('./files/thumbs/' + file.filename)
+    }).catch(log.error) // User doesn't need to know/care about this.
+  }
 })
