@@ -9,7 +9,7 @@ module.exports = router
 const fs = require('fs')
 
 router.get('/:name', (req, res) => {
-  const name = req.params.name
+  const name = req.params.name + '.jpeg'
 
   if (req.params.name === 'all')
     cleanup(0)

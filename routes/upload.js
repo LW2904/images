@@ -1,4 +1,5 @@
-const { MIMETYPES } = require('../config')
+const { FILE_PATH, THUMB_PATH } = global
+const { MIMETYPES, DIRS } = require('../config')
 
 const log = require('../logger')
 const cleanup = require('../scripts/cleanup')
@@ -12,10 +13,11 @@ const Jimp = require('jimp')
 const multer = require('multer')
 const upload = multer({
   storage: multer.diskStorage({
-    destination: './files/',
+    destination: FILE_PATH,
     filename: (req, file, cb) =>
-      cb(null, Date.now() + '.' +
-               file.mimetype.slice(file.mimetype.lastIndexOf('/') + 1))
+      cb(null, 
+        Date.now() + '.' +
+        file.mimetype.slice(file.mimetype.lastIndexOf('/') + 1))
   }),
   limits: {
     fileSize: 1024 * 1024,
@@ -32,12 +34,15 @@ router.post('/', upload.array('file', 5), (req, res) => {
     log.debug(`file ${file.filename} uploaded.`)
         
     Jimp.read(file.path).then(img => {
+      const n = file.filename.slice(0, file.filename.lastIndexOf('.'))
       const w = img.bitmap.width, h = img.bitmap.height
       const f = w < h ? w : h
       img.crop((w / 2) - (f / 2), 0, f, f).scaleToFit(100, 100)
-        .write('./files/thumbs/' + file.filename)
+        .write(THUMB_PATH + n + '.jpeg')
     }).catch(log.error) // User doesn't need to know/care about this.
   }
 
-  res.status(200).render('uploaded', { names: req.files.map(e => e.filename) })  
+  res.status(200).render('uploaded', {
+    names: req.files.map(e => e.filename)
+  })  
 })
