@@ -11,7 +11,7 @@ app.use(require('morgan')('dev', {
 }))
 
 // Serve images and thumbnails.
-app.use(express.static('files'))
+app.use('/image', express.static('files'))
 app.use('/thumb', express.static('files/thumbs'))
 
 // Pages.
