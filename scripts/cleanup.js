@@ -7,12 +7,13 @@ const fs = require('fs')
 
 const cleanup = (maxNum = MAX_FILES) => {
   const parse = names => names.filter(e => e.indexOf('.') + 1)
-    .sort((a, b) => parseInt(a.slice(0, a.lastIndexOf('.') + 3), 10) -
-                    parseInt(b.slice(0, b.lastIndexOf('.') + 3), 10))
+    .sort((a, b) =>
+      (parseInt(a.slice(0, a.lastIndexOf('.') + 3), 10) -
+       parseInt(b.slice(0, b.lastIndexOf('.') + 3), 10)))
 
-  let images = parse(fs.readdirSync(FILE_PATH))
-  let thumbs = parse(fs.readdirSync(THUMB_PATH))
-
+  const images = parse(fs.readdirSync(FILE_PATH))
+  const thumbs = parse(fs.readdirSync(THUMB_PATH))
+  
   const names = [...new Set(images.concat(thumbs))]
   
   if (names.length >= maxNum)
