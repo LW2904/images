@@ -1,6 +1,7 @@
 const { MIMETYPES } = require('../config')
 
 const log = require('../logger')
+const cleanup = require('../scripts/cleanup')
 
 const router = require('express').Router()
 
@@ -24,7 +25,9 @@ const upload = multer({
     cb(null, MIMETYPES.includes(file.mimetype))
 })
 
-router.post('/', upload.array('file', 5), (req, res, next) => {
+router.post('/', upload.array('file', 5), (req, res) => {
+  cleanup()
+
   for (const file of req.files) {    
     log.debug(`file ${file.filename} uploaded.`)
         

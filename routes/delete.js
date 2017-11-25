@@ -1,3 +1,5 @@
+const { FILE_PATH, THUMB_PATH } = global
+
 const cleanup = require('../scripts/cleanup')
 
 const router = require('express').Router()
@@ -12,10 +14,11 @@ router.get('/:name', (req, res) => {
   if (req.params.name === 'all')
     cleanup(0)
 
-  if (fs.existsSync(`./files/${name}`))
-    fs.unlinkSync(`./files/${name}`)
-  if (fs.existsSync(`./files/thumbs/${name}`))
-    fs.unlinkSync(`./files/thumbs/${name}`)
+  if (fs.existsSync(FILE_PATH + name))
+    fs.unlinkSync(FILE_PATH + name)
+
+  if (fs.existsSync(THUMB_PATH + name))
+    fs.unlinkSync(THUMB_PATH + name)
 
   return res.render('success', { message: 'Deleted file(s).' })
 })

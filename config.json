@@ -1,4 +1,8 @@
 {
     "MAX_FILES": 100,
-    "MIMETYPES": [ "image/jpeg", "image/png" ]
+    "MIMETYPES": [ "image/jpeg", "image/png" ],
+    "DIRS": {
+        "files": "/files/",
+        "thumbs": "/files/thumbs/"
+    }
 }
