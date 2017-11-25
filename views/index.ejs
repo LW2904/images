@@ -36,14 +36,18 @@
 
   <body>
     <div class="container header">
-      <h4>index <a href="./"><small class="muted">Back.</small></a></h4>
+      <h4>index <a href="/"><small>Back.</small></a></h4>
     </div>
-
+    
     <div class="container">
-      <% images.reverse().forEach(img =>  { %>
-        <a id="<%= img %>" class="image">
-          <img src="./thumb/<%= img %>" class="thumb"/>
-        </a>
+      <% images.reverse().reduce((a, b, i, g) => !(i % 9) ? a.concat([ g.slice(i, i + 9)]) : a, [  ]).forEach(row =>  { %>
+        <div class="image-row">
+          <% row.forEach(img => { %>
+            <a href="./image/<%= img %>" id="<%= img %>" class="image">
+              <img src="./thumb/<%= img %>" class="thumb"/>
+            </a>
+          <% }) %>
+        </div>
       <% }) %>
     </div>
   </body>

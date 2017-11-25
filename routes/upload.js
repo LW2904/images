@@ -25,14 +25,9 @@ const upload = multer({
 })
 
 router.post('/', upload.array('file', 5), (req, res, next) => {
-  for (const file of req.files) {
-    if (!file)
-      return next(new Error('Invalid file.'))
-    
+  for (const file of req.files) {    
     log.debug(`file ${file.filename} uploaded.`)
-    
-    res.status(200).render('uploaded', { name: file.filename })
-    
+        
     Jimp.read(file.path).then(img => {
       const w = img.bitmap.width, h = img.bitmap.height
       const f = w < h ? w : h
@@ -40,4 +35,6 @@ router.post('/', upload.array('file', 5), (req, res, next) => {
         .write('./files/thumbs/' + file.filename)
     }).catch(log.error) // User doesn't need to know/care about this.
   }
+
+  res.status(200).render('uploaded', { names: req.files.map(e => e.filename) })  
 })
