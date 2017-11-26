@@ -1,5 +1,5 @@
 const { FILE_PATH, THUMB_PATH } = global
-const { MIMETYPES, DIRS } = require('../config')
+const { MIMETYPES } = require('../config')
 
 const log = require('../logger')
 const cleanup = require('../scripts/cleanup')
@@ -27,8 +27,13 @@ const upload = multer({
     cb(null, MIMETYPES.includes(file.mimetype))
 })
 
-router.post('/', upload.array('file', 5), (req, res) => {
+router.get('/', req => req.redirect('../'))
+
+router.post('/', upload.array('file', 5), (req, res, next) => {
   cleanup()
+
+  if (!req.files[0])
+    return next(new Error('No file provided.'))
 
   for (const file of req.files) {    
     log.debug(`file ${file.filename} uploaded.`)
