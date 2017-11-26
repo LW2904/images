@@ -1,4 +1,4 @@
-const { FILE_PATH, THUMB_PATH } = global
+const { FILE_PATH } = global
 
 const cleanup = require('../scripts/cleanup')
 
@@ -7,24 +7,32 @@ const router = require('express').Router()
 module.exports = router
 
 const fs = require('fs')
+const glob = require('glob')
 
 router.get('/:name', (req, res) => {
   const name = req.params.name
 
-  let success = 0, error = 0
+  let success = [  ], error = [  ]
 
-  if (req.params.name === 'all')
+  if (req.params.name === 'all')  {
     [ success, error ] = cleanup(0)
-  else
-    try {
-      fs.unlinkSync(FILE_PATH + name + '.jpeg')
-      fs.unlinkSync(THUMB_PATH + name + '.jpeg')
+  } else {
+    const files = glob.sync(FILE_PATH + name)
+    
+    if (files) for (const file of files) {
+      try {
+        fs.unlinkSync(file)
+        success.push(file)
+      } catch (e) { error.push(e) }
+    }
+  }
 
-      success++
-    } catch (e) { error++ }
+  if (error) require('../logger').error(error)
 
   return res.render('success', {
+    success,
+    error,
     message: `Deleted ${success.length} file(s)` +
-    `${error ? `, failed deleting ${error.length} file(s)` : ``}.`
+    `${error.length > 0 ? `, ran into ${error.length} error(s)` : ``}.`
   })
 })
