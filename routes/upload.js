@@ -10,14 +10,16 @@ module.exports = router
 
 const Jimp = require('jimp')
 
+let i // Used to guarantee uniqueness of files uploaded in the same ms.
+
 const multer = require('multer')
 const upload = multer({
   storage: multer.diskStorage({
     destination: FILE_PATH,
     filename: (req, file, cb) =>
       cb(null, 
-        Date.now() + '.' +
-        file.mimetype.slice(file.mimetype.lastIndexOf('/') + 1))
+         Date.now() + `${i++}` + '.' +
+         file.mimetype.slice(file.mimetype.lastIndexOf('/') + 1))
   }),
   limits: {
     fileSize: 1024 * 1024,
@@ -30,6 +32,7 @@ const upload = multer({
 router.get('/', req => req.redirect('../'))
 
 router.post('/', upload.array('file', 5), (req, res, next) => {
+  i = 0
   cleanup()
 
   if (!req.files[0])
