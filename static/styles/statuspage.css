@@ -23,4 +23,5 @@ a { color: inherit }
   font-size: 12px }
 
 .error { color: #722509 }
-.success { color: #F58A07 }
+.status { color: #F58A07 }
+.success { color: #5bb91c }
