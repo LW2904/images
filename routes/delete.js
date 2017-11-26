@@ -9,16 +9,22 @@ module.exports = router
 const fs = require('fs')
 
 router.get('/:name', (req, res) => {
-  const name = req.params.name + '.jpeg'
+  const name = req.params.name
+
+  let success = 0, error = 0
 
   if (req.params.name === 'all')
-    cleanup(0)
+    [ success, error ] = cleanup(0)
+  else
+    try {
+      fs.unlinkSync(FILE_PATH + name + '.jpeg')
+      fs.unlinkSync(THUMB_PATH + name + '.jpeg')
 
-  if (fs.existsSync(FILE_PATH + name))
-    fs.unlinkSync(FILE_PATH + name)
+      success++
+    } catch (e) { error++ }
 
-  if (fs.existsSync(THUMB_PATH + name))
-    fs.unlinkSync(THUMB_PATH + name)
-
-  return res.render('success', { message: 'Deleted file(s).' })
+  return res.render('success', {
+    message: `Deleted ${success.length} file(s)` +
+    `${error ? `, failed deleting ${error.length} file(s)` : ``}.`
+  })
 })
