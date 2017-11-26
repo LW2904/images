@@ -1,9 +1,9 @@
+const { DIRS } = require('./config')
+
 const path = require('path')
 
 const express = require('express')
 const app = express()
-
-const { DIRS } = require('./config')
 
 global.FILE_PATH = path.normalize(__dirname + DIRS.files)
 global.THUMB_PATH = path.normalize(__dirname + DIRS.thumbs)
