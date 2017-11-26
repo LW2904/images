@@ -1,11 +1,10 @@
 const { MAX_FILES } = require('../config')
 const { FILE_PATH, THUMB_PATH } = global
 
-const log = require('../logger')
-
 const fs = require('fs')
 
 const cleanup = (maxNum = MAX_FILES) => {
+  // Filter out folders and sort files by age, descending.
   const parse = names => names.filter(e => e.indexOf('.') + 1)
     .sort((a, b) =>
       (parseInt(a.slice(0, a.lastIndexOf('.') + 3), 10) -
@@ -14,15 +13,21 @@ const cleanup = (maxNum = MAX_FILES) => {
   const images = parse(fs.readdirSync(FILE_PATH))
   const thumbs = parse(fs.readdirSync(THUMB_PATH))
   
-  const names = [...new Set(images.concat(thumbs))]
+  const names = [ ...new Set(images.concat(thumbs)) ]
+
+  let success = [  ], error = [  ]
   
   if (names.length >= maxNum)
     for (const name of names.slice(0, names.length - maxNum)) {
-      fs.unlink(FILE_PATH + name, err => { if (err) log.silly(err) })
-      fs.unlink(THUMB_PATH + name, err => { if (err) log.silly(err) })
+      try {
+        fs.unlinkSync(FILE_PATH + name)
+        fs.unlinkSync(THUMB_PATH + name)
 
-      log.silly(`tried deleting file ${name}`)
+        success.push(name)
+      } catch (err) { error.push({ name, err }) }
     }
+
+  return [ success, error ]
 }
 
 module.exports = cleanup
