@@ -10,7 +10,7 @@ module.exports = router
 
 const Jimp = require('jimp')
 
-let i // Used to guarantee uniqueness of files uploaded in the same ms.
+let i = 0 // Used to guarantee uniqueness of files uploaded in the same ms.
 
 const multer = require('multer')
 const upload = multer({
@@ -50,7 +50,11 @@ router.post('/', upload.array('file', 5), (req, res, next) => {
     }).catch(log.error) // User doesn't need to know/care about this.
   }
 
-  res.status(200).render('uploaded', {
-    names: req.files.map(e => e.filename)
-  })  
+  res.render('status', {
+    status: 'success',
+    head: `Uploaded ${req.files.length} file(s).`,
+    links: req.files.map(e => {
+      return { url: `/image/${e.filename}`, name: e.filename }
+    })
+  })
 })

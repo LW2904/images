@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="/styles/normalize.css">
+    <link rel="stylesheet" href="/styles/skeleton.css">
+
+    <link rel="stylesheet" href="/styles/statuspage.css">
+
+    <title>files / <%= status %></title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="center">
+          <% if (locals.head) { %>
+            <b class="<%= status %>"><%= head %></b>
+            <% if (locals.message) { %> <%= message %> <% } %>  
+          <% } %>        
+
+          <% if (locals.links) { %>
+            <% links.forEach(link => { %>
+            </br> <a href="<%= link.url %>"><%= link.name %></a>
+            <% }) %>
+          <% } %>
+
+          </br> <a href="/" class="muted">Back.</a> 
+          <% if (locals.status === 'error') { %>
+            <a href="https://steamcommunity.com/profiles/76561198091491690" class="muted">
+              Cry about this issue.
+            </a>
+          <% } %>
+      </div>
+    </div>
+  </body>
+</html>

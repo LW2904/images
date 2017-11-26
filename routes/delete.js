@@ -29,10 +29,9 @@ router.get('/:name', (req, res) => {
 
   if (error) require('../logger').error(error)
 
-  return res.render('success', {
-    success,
-    error,
-    message: `Deleted ${success.length} file(s)` +
-    `${error.length > 0 ? `, ran into ${error.length} error(s)` : ``}.`
+  return res.render('status', {
+    status: 'status',
+    head: `Deleted ${success.length} file(s)` +
+     `${error.length > 0 ? `, ran into ${error.length} error(s)` : ``}.`
   })
 })
