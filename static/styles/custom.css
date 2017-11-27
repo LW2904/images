@@ -1,0 +1,41 @@
+/* BASICS */
+body, html {
+  font-family: 'Raleway', 'Arial';
+  background: #0e0e0e;
+  color: #CCCCCC;
+  height: 100%;
+  display: grid }
+
+form {
+  color: #dbdbdb }
+small {
+  font-size: 15px }
+
+.header {
+  padding-top: 1rem }
+.muted {
+  color: #828282;
+  font-size: 12px }
+
+
+/* STATUS COLORS */
+.error { color: #722509 }
+.status { color: #F58A07 }
+.success { color: #5bb91c }
+
+
+/* CENTERING */
+.center-container {
+  position: relative }
+.center-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) }
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center }

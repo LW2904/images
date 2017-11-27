@@ -6,26 +6,19 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="/styles/normalize.css">
-    <link rel="stylesheet" href="/styles/skeleton.css">
+    <link rel="stylesheet" href="./styles/normalize.css">
+    <link rel="stylesheet" href="./styles/skeleton.css">
+
+    <link rel="stylesheet" href="./styles/custom.css">    
 
     <style>
 
-      body {
-        font-family: 'Arial';
-        background: #0e0e0e;
-        color: #cccccc }
-
-      small {
-        font-size: 15px }
+      body, html {
+        display: block }
 
       a.image {
         text-decoration: none }
-
-      .header {
-        margin-top: 2rem }
-
-      .thumb {
+      .image.thumb {
         width: 100px;
         height: auto }
 
@@ -40,6 +33,7 @@
     </div>
     
     <div class="container">
+      <!-- Reverse images to sort from newest to oldest and split in chunks (rows) of 9. -->
       <% images.reverse().reduce((a, b, i, g) => !(i % 9) ? a.concat([ g.slice(i, i + 9)]) : a, [  ]).forEach(row =>  { %>
         <div class="image-row">
           <% row.forEach(img => { %>

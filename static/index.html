@@ -12,32 +12,19 @@
     <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="./styles/skeleton.css">
+    <link rel="stylesheet" href="./styles/custom.css">    
 
     <style>
 
       body, html {
-        font-family: 'Raleway';
-        background: #0e0e0e;
-
-        height: 100%;
-        display: grid;
-
-        overflow: hidden;
+        overflow: hidden;  
       }
 
-      form { color: #dbdbdb; }
-
-      label { cursor: pointer; }
-
-      #center {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        text-align: center;
+      label {
+        cursor: pointer;
       }
 
-      #upload {
+      .upload {
         padding: 1em;
         border: 1px solid #F58A07;
         border-radius: 5px;
@@ -47,7 +34,7 @@
         display: none;
       }
 
-      #footer {
+      .footer {
         padding-top: 1em;
         background-color: #0a0a0a;
         text-align: center;
@@ -56,17 +43,12 @@
         width:100%;
       }
 
-      .muted {
-        color: grey;
-        font-size: 11px;
-      }
-
     </style>
   </head>
 
   <body>
-    <div class="container" id="center">
-      <div id="upload">
+    <div class="container flex-center">
+      <div class="upload">
         <form ref="uploadForm"
           action="./upload"
           method="post"
@@ -81,7 +63,7 @@
         </small>
       </div>
 
-      <div id="footer" class="row">
+      <div class="row footer">
         <a href="./"><button>upload</button></a>
         <a href="./index"><button>index</button></a>
       </div>

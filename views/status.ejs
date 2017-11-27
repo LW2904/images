@@ -9,14 +9,22 @@
     <link rel="stylesheet" href="/styles/normalize.css">
     <link rel="stylesheet" href="/styles/skeleton.css">
 
-    <link rel="stylesheet" href="/styles/statuspage.css">
+    <link rel="stylesheet" href="/styles/custom.css">
 
     <title>files / <%= status %></title>
+
+    <style>
+      
+      a {
+        color: inherit;
+      }
+
+    </style>
   </head>
 
   <body>
-    <div class="container">
-      <div class="center">
+    <div class="center-container">
+      <div class="center-child">
           <% if (locals.head) { %>
             <b class="<%= status %>"><%= head %></b>
             <% if (locals.message) { %> <%= message %> <% } %>  
