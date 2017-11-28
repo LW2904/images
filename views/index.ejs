@@ -17,10 +17,12 @@
         display: block }
 
       a.image {
-        text-decoration: none }
-      .image.thumb {
+        text-decoration: none;
         width: 100px;
         height: auto }
+      .image.thumb {
+        width: inherit;
+        height: inherit }
 
     </style>
 
@@ -38,11 +40,12 @@
         <div class="image-row">
           <% row.forEach(img => { %>
             <a href="./image/<%= img %>" id="<%= img %>" class="image">
-              <img src="./thumb/<%= img %>" class="thumb"/>
+              <img src="./thumb/<%= img.slice(0, img.lastIndexOf('.')) + '.jpeg' %>" class="thumb"/>
             </a>
-          <% }) %>
-        </div>
-      <% }) %>
+            <% }) %>
+          </div>
+        <% }) %>
+      </div>
     </div>
   </body>
 </html>
