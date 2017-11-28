@@ -1,5 +1,9 @@
 const { FILE_PATH, THUMB_PATH } = global
-const { MIMETYPES } = require('../config')
+const {
+  UPLOAD_MAX_FILES,
+  MAX_FILESIZE, // In KiB.
+  MIMETYPES
+} = require('../config')
 
 const log = require('../logger')
 const cleanup = require('../scripts/cleanup')
@@ -22,8 +26,8 @@ const upload = multer({
          file.mimetype.slice(file.mimetype.lastIndexOf('/') + 1))
   }),
   limits: {
-    fileSize: 1024 * 1024,
-    files: 5
+    fileSize: MAX_FILESIZE * 1024, // Convert to bytes.
+    files: UPLOAD_MAX_FILES
   },
   fileFilter: (req, file, cb) =>
     cb(null, MIMETYPES.includes(file.mimetype))
@@ -36,7 +40,7 @@ router.post('/', upload.array('file', 5), (req, res, next) => {
   cleanup()
 
   if (!req.files[0])
-    return next(new Error('No file provided.'))
+    return next(new Error('No file(s) provided.'))
 
   for (const file of req.files) {    
     log.debug(`file ${file.filename} uploaded.`)
@@ -47,14 +51,14 @@ router.post('/', upload.array('file', 5), (req, res, next) => {
       const f = w < h ? w : h
       img.crop((w / 2) - (f / 2), 0, f, f).scaleToFit(100, 100)
         .write(THUMB_PATH + n + '.jpeg')
-    }).catch(log.error) // User doesn't need to know/care about this.
+    }).catch(err => log.error(err.message)) // User doesn't care about this.
   }
 
   res.render('status', {
     status: 'success',
     head: `Uploaded ${req.files.length} file(s).`,
     links: req.files.map(e => {
-      return { url: `/image/${e.filename}`, name: e.filename }
+      return { url: FILE_PATH + e.filename, name: e.filename }
     })
   })
 })

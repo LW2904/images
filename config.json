@@ -4,5 +4,7 @@
     "DIRS": {
         "files": "/files/",
         "thumbs": "/files/thumbs/"
-    }
+    },
+    "UPLOAD_MAX_FILES": 1000,
+    "MAX_FILESIZE": 1024
 }
