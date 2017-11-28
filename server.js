@@ -19,7 +19,10 @@ app.use(require('morgan')('dev', {
 
 // Serve images and thumbnails.
 app.use('/image', express.static('files'))
-app.use('/thumb', express.static('files/thumbs'))
+app.use('/thumb',
+  express.static('files/thumbs'),
+  (req, res) => res.sendFile(global.THUMB_PATH + 'default.jpeg')
+)
 
 // Pages.
 app.use(express.static('static'))
