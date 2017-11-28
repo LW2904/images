@@ -40,12 +40,23 @@
         <div class="image-row">
           <% row.forEach(img => { %>
             <a href="./image/<%= img %>" id="<%= img %>" class="image">
-              <img src="./thumb/<%= img.slice(0, img.lastIndexOf('.')) + '.jpeg' %>" class="thumb"/>
+              <img src="#" data-src="./thumb/<%= img.slice(0, img.lastIndexOf('.')) + '.jpeg' %>" class="thumb"/>
             </a>
             <% }) %>
           </div>
         <% }) %>
       </div>
     </div>
+
+    <script>
+      (function(w, d){
+        var b = d.getElementsByTagName('body')[0];
+        var s = d.createElement("script"); s.async = true;
+        var v = !("IntersectionObserver" in w) ? "8.5.2" : "10.3.5";
+        s.src = "https://cdnjs.cloudflare.com/ajax/libs/vanilla-lazyload/" + v + "/lazyload.min.js";
+        w.lazyLoadOptions = {}
+        b.appendChild(s);
+      }(window, document))
+    </script>
   </body>
 </html>
