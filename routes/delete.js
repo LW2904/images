@@ -27,7 +27,8 @@ router.get('/:name', (req, res) => {
     }
   }
 
-  if (error) require('../logger').error(error)
+  if (error)
+    require('../logger').error(error.join())
 
   return res.render('status', {
     status: 'status',
