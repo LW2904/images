@@ -14,7 +14,8 @@ module.exports = router
 
 const Jimp = require('jimp')
 
-let i = 0 // Used to guarantee uniqueness of files uploaded in the same ms.
+let c = 0 // Only cleanup() every 5 requests.
+let i = 0 // Guarantee uniqueness of files uploaded in the same ms.
 
 const multer = require('multer')
 const upload = multer({
@@ -37,7 +38,9 @@ router.get('/', req => req.redirect('../'))
 
 router.post('/', upload.array('file', 5), (req, res, next) => {
   i = 0
-  cleanup()
+
+  if (!(++c % 5))
+    cleanup()
 
   if (!req.files[0])
     return next(new Error('No file(s) provided.'))
